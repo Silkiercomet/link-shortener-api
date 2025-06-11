@@ -16,6 +16,10 @@ const mySchema = new Schema({
         type: Date,
         default: Date.now,
         expires: '1d' // Elimina el documento después de 1 día
+    },
+    visits: {
+        type: Number,
+        default: 0
     }
 });
 
