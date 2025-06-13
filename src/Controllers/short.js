@@ -8,14 +8,11 @@ model.id = nanoid() //=> "4f90d13a42"
 
 const shortenUrl = async (req, res) => {
     const { originalUrl } = req.body;
-
+   if (!isValidUrl(originalUrl)) {
+        return res.status(400).json({ error: 'URL original no es válida' });
+    }
     if (!originalUrl) {
         return res.status(400).json({ error: 'URL original es requerida' });
-    }
-
-    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (!urlRegex.test(originalUrl) && !isValidUrl(link.originalUrl)) {
-        return res.status(400).json({ error: 'URL original no es valida' });
     }
 
     try {
@@ -32,7 +29,7 @@ const shortenUrl = async (req, res) => {
             originalUrl,
             shortUrl
         });
-
+        console.log(link,"test1")
         await link.save();
         res.status(201).json(link);
     } catch (error) {

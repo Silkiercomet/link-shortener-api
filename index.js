@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const appRouter = require("./src/Routes/routes")
 // Conexión a la base de datos MongoDB
 const connectDB = async () => {
     try {
@@ -27,6 +28,8 @@ app.use(express.static('public')); // (Opcional) Para servir archivos estáticos
 app.get('/', (req, res) => {
     res.json({ message: 'API del Acortador de URLs funcionando correctamente' });
 });
+
+app.use("/", appRouter) // rutas de la app
 
 // 5. Iniciar Servidor
 const PORT = process.env.PORT || 4000;
