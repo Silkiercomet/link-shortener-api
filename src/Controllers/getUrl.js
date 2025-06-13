@@ -9,11 +9,8 @@ const getOriginalUrl = async (req, res) => {
 
     try {
         // Buscar el enlace por shortUrl
+
         const link = await model.findOne({ shortUrl });
-        
-        if (!link) {
-            return res.status(404).json({ error: 'Enlace no encontrado' });
-        }
 
         if (!link) {
             return res.status(404).json({ error: 'Enlace no encontrado' });
@@ -25,7 +22,7 @@ const getOriginalUrl = async (req, res) => {
         await link.save();
 
         // Redirigir a la URL original
-        res.redirect(link.originalUrl);
+        return res.status(201).json({ originalUrl: link.originalUrl });
     } catch (error) {
         console.error('Error al obtener la URL original:', error);
         res.status(500).json({ error: 'Error interno del servidor' });
